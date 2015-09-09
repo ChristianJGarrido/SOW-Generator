@@ -32,11 +32,6 @@ var inputs = ['domain','numlob','reptargets','scards','numskill','numvispro','bu
 
 var gboxesClick = false;
 
-window.onload = function() {
-  loadDropDowns();
-};
-
-
 function loadDropDowns() {
 
 	for(var i = 0; i < inputs.length; i++) {
@@ -52,7 +47,7 @@ function loadDropDowns() {
 
 function makeDD(id, n) {
 	
-	var dd = '<select id ="';
+	var dd = '<select class="selectpicker" id ="';
 	dd += id + '">';
 	for(i = 0; i <= n; i++) {
 		dd += '<option value=' + i + '>' + i + '</option>';
@@ -82,9 +77,9 @@ for(var i = 1; i < numdomains; i++) {
 //lob += i;
 
 //generate += '<li>';
-generate1 += 'LOB ' + (i+1) + '<br>';
+generate1 += '<input type="text" disabled="disabled" style="width:70px;" value="LOB ' + (i+1) + '"></input><br>';
 generate2 += '<input type="text" id="lobs'+i+'"></input><br>';
-generate1 += 'DOM ' + (i+1) + '<br>';
+generate1 += '<input type="text" disabled="disabled" style="width:70px;" value="DOM ' + (i+1) + '"></input><br>';
 generate2 += '<input type="text" id="domurls'+i+'"></input><br>';
 //generate += '</li>';
 }
@@ -160,23 +155,28 @@ var atrain = $('#atrain')[0].options[$('#atrain')[0].selectedIndex].value;
 var numatrain = $('#numatrain')[0].options[$('#numatrain')[0].selectedIndex].value;
 var itype = $('#itype')[0].options[$('#itype')[0].selectedIndex].value;
 
+var nl = "<p class=MsoNormal style='margin-left:.25in'><span style='font-size:10.0pt; font-family:\"Arial\",sans-serif'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class=SpellE><span style='font-size:9.0pt;font-family:\"Arial\",sans-serif'>";
+var bullet = "<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span style='font-size:9.0pt;font-family:Symbol'>&#8226;</span><span style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='font-size:9.0pt;font-family:\"Arial\",sans-serif'>";
+var el = "</span></p>";
+
 textarea = document.getElementById("tarea");
-SOW += "<u>" + intro.part1 + " " + ptype + " " + intro.part2 + "</u>";
-SOW += "<ul>";
+SOW += "<u>" + intro.part1 + sp + ptype + sp +  intro.part2 + "</u>";
+SOW += "<ul style=\"margin-top:0.0in;\">";
 if(itype == "New") {
-SOW += "<li>" + intro.part3 + "</li>";
+
+SOW += "<li>" + intro.part3 + el + "</li>";
 }
 
 SOW += '</ul>';
-SOW += "<b>Company Website</b><ul><li>" + cwebsite.part1 + sp + numdomains + sp; 
+SOW += "<b>Company Website</b><ul style=\"margin-top:0.0in;\"><li>" + cwebsite.part1 + sp + numdomains + sp; 
 
 SOW += cwebsite.part2 + "</li>";
 
 if( intdomains > 1 && gboxesClick) {
-SOW += "<ul><li>" + 'Company Line of Business 1 (LOB):' + sp + lob + "</li><li>" + 'Company domain 1 (URL):' + sp + domurl + "</li>"; 
+SOW += "<ul style=\"margin-top:0.0in;\"><li>" + 'Company Line of Business 1 (LOB):' + sp + lob + "</li><li>" + 'Company domain 1 (URL):' + sp + domurl + "</li>"; 
 }
 else{
-SOW += "<ul><li>" + cwebsite.part3 + sp + lob + "</li><li>" + cwebsite.part4 + sp + domurl + "</li>"; 
+SOW += "<ul style=\"margin-top:0.0in;\"><li>" + cwebsite.part3 + sp + lob + "</li><li>" + cwebsite.part4 + sp + domurl + "</li>"; 
 }
 
 if( intdomains > 1 && gboxesClick) {
@@ -189,7 +189,7 @@ SOW += "<li>" + 'Company Line of Business' + sp + (i+2) + sp + '(LOB): ' + lobs[
 SOW += "</ul></ul>";
 if((drd == "Yes") || (cp == "Yes")) {
 
-	SOW += "<b>Code Package</b><ul>";
+	SOW += "<b>Code Package</b><ul style=\"margin-top:0.0in;\">";
 
 }
 
@@ -210,7 +210,7 @@ if((drd == "Yes") || (cp == "Yes")) {
 }
 
 
-SOW += "<b>Capabilities</b><ul><li>";
+SOW += "<b>Capabilities</b><ul style=\"margin-top:0.0in;\"><li>";
 SOW += cap1.intro.part1 + sp + numlob + sp; 
 
 if(itype == "Expansion") {
@@ -221,7 +221,7 @@ SOW += 'existing ';
 
 SOW += cap1.intro.part2 + "</li>";
 if((scards != '0') || (reptargets != '0')) {
-	SOW += "<ul>";
+	SOW += "<ul style=\"margin-top:0.0in;\">";
 }
 if((reptargets != '0') && (reptargets != '')) {
 SOW += "<li>" + cap1.section1.part1 + sp + reptargets + sp + cap1.section1.part2 +"</li>";
@@ -234,10 +234,10 @@ if((scards != '0') || (reptargets != '0')) {
 }
 SOW += "<li>" + cap1.end + "</li></ul>";
 
-SOW += "<dl><dd>";
+SOW += "<dl style=\"margin-top:0.0in;margin-left:25;\"><dd>";
 
 if(chat) {
-SOW += '<b>Chat</b><dl><dd id ="left"><ul>';
+SOW += '<b>Chat</b><dl style=\"margin-top:0.0in;\"><dd id ="left"><ul style=\"margin-top:0.0in;\">';
 if((numskill != '0') && (numskill != '')) {
 SOW += "<li>Up to " + numskill + sp + cap2[0] + "</li>";
 }
@@ -245,7 +245,7 @@ if((numvispro != '0') && (numvispro != '')) {
 SOW += "<li>Up to " + numvispro + sp + cap2[1] + "</li>";
 }
 if((pit == 'Yes') || (busrules != '0')) {
-	SOW += "<li>" + cap2[2] + "</li><ul>";
+	SOW += "<li>" + cap2[2] + "</li><ul style=\"margin-top:0.0in;\">";
 }
 
 if(pit == 'Yes') {
@@ -268,7 +268,7 @@ if((numwindows != '0') && (numwindows != '')) {
 SOW += "<li>" + cap3[0] + sp + numwindows + sp+ cap3[1] +"</li>";
 }
 if(windowbrand == 'Yes') {
-	SOW += '<ul><li>Window(s) to have custom branding</li></ul>';
+	SOW += '<ul style=\"margin-top:0.0in;\"><li>Window(s) to have custom branding</li></ul>';
 
 }
 if((numsurveys != '0') && (numsurveys != '')) {
@@ -289,7 +289,7 @@ SOW += "</ul></dl>";
 }
 
 if(voice) {
-SOW += '<b>Voice</b><dl><dd id = "left"><ul>';
+SOW += '<b>Voice</b><dl style=\"margin-top:0.0in;\"><dd id = "left"><ul style=\"margin-top:0.0in;\">';
 if((numskill != '0') && (numskill != '')) {
 SOW += "<li>Up to " + numskill + sp + cap2[0] + "</li>";
 }
@@ -314,7 +314,7 @@ if((numwindows != '0') && (numwindows != '')) {
 }
 
 if(windowbrand == 'Yes') {
-	SOW += '<ul><li>Window(s) to have custom branding</li></ul>';
+	SOW += '<ul style=\"margin-top:0.0in;\"><li>Window(s) to have custom branding</li></ul>';
 
 }
 if((numsurveys != '0') && (numsurveys != '')) {
@@ -335,7 +335,7 @@ SOW += "</ul></dl>";
 }
 
 if(content) {
-SOW += '<b>Content</b><dl><dd id="left"><ul>';
+SOW += '<b>Content</b><dl class = style=\"margin-top:0.0in;\"><dd id="left"><ul style=\"margin-top:0.0in;\">';
 
 SOW += "<li>Setup and deployment of up to " + offers + sp + "concurrent offers" + "</li>";
 
@@ -343,7 +343,7 @@ SOW += "</ul></dl>";
 }
 
 if(mobile) {
-SOW += '<b>Mobile</b><dl><dd id="left"><ul>';
+SOW += '<b>Mobile</b><dl style=\"margin-top:0.0in;\"><dd id="left"><ul style=\"margin-top:0.0in;\">';
 
 if((numskill != '0') && (numskill != '')) {
 SOW += "<li>Up to " + numskill + sp + "Mobile " + cap2[0] + "</li>";
@@ -355,7 +355,7 @@ if((dbs != '0') && (dbs != '')) {
 SOW += "<li>Up to " + dbs + sp + "Mobile chat buttons" + "</li>";
 }
 SOW += "<li>LP Mobile plug in code packages for mobile chat</li>";
-SOW += "<ul>";
+SOW += "<ul style=\"margin-top:0.0in;\">";
 if(ios) {
 
 SOW += "<li>for iOS native applications</li>";
@@ -377,7 +377,7 @@ SOW += "</ul></ul></dl>";
 
 SOW += "</dl>";
 
-SOW += "<b>Testing</b><ul>";
+SOW += "<b>Testing</b><ul style=\"margin-top:0.0in;\">";
 SOW += "<li>" + testing[0] + "</li>";
 SOW += "<li>" + testing[1] + "</li>";
 SOW += "<li>Up to " + tcalls + sp + "testing call(s)</li></ul>";
@@ -385,23 +385,23 @@ SOW += "<li>Up to " + tcalls + sp + "testing call(s)</li></ul>";
 if((train != "none") || (atrain != "none" )) {
 
 SOW += "<b>Training</b>";
-SOW += "<ul><li>" + training.intro + "</li>";
+SOW += "<ul style=\"margin-top:0.0in;\"><li>" + training.intro + "</li>";
 
 	if(train == "remote") {
 
-		SOW += "<ul><li>" + numtrain + sp + training.remote + "</li>";
+		SOW += "<ul style=\"margin-top:0.0in;\"><li>" + numtrain + sp + training.remote + "</li>";
 
 	}
 	
 	if(train == "sura") {
 
-		SOW += "<ul><li>" + numtrain + sp + training.sura + "</li>";
+		SOW += "<ul style=\"margin-top:0.0in;\"><li>" + numtrain + sp + training.sura + "</li>";
 
 	}
 	
 	if((atrain == "remote") && (train == "none")) {
 
-		SOW += "<ul><li>Up to " + numatrain + sp + 'remote three (3) hour Admin Console training session for up to 15 participants' + "</li>";
+		SOW += "<ul style=\"margin-top:0.0in;\"><li>Up to " + numatrain + sp + 'remote three (3) hour Admin Console training session for up to 15 participants' + "</li>";
 	}
 	
 	if((atrain == "remote") && (train != "none")) {
@@ -415,13 +415,13 @@ SOW += "</ul></ul>";
 
 if((numpm != '0') && (numpm != '')) {
 SOW += "<b>Project management</b>";
-SOW += "<ul><li>" + numpm + sp +pml+sp + pm + "</li></ul>";
+SOW += "<ul style=\"margin-top:0.0in;\"><li>" + numpm + sp +pml+sp + pm + "</li></ul>";
 
 }
 
 if((numplm != '0') && (numplm != '')) {
 SOW += "<b>Optimization</b>";
-SOW += "<ul><li>Up to " + numplm + sp + opt.intro + "</li>";
+SOW += "<ul style=\"margin-top:0.0in;\"><li>Up to " + numplm + sp + opt.intro + "</li>";
 SOW += "<li>" + opt.creation + sp + numscr + sp + opt.scorecard + "</li>";
 SOW += "<li>" + opt.creation + sp + numstaffr + sp + opt.staffing + "</li>";
 SOW += "<li>" + opt.creation + sp + numaer + sp + opt.agenteff + "</li></ul>";
@@ -440,3 +440,9 @@ function wordSOW(){
 $("#page-content").wordExport();
 
 }
+
+window.onload = function() {
+  loadDropDowns();
+  initData();
+  initTable(window.data);
+};
