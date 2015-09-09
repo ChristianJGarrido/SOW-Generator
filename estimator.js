@@ -99,6 +99,18 @@ function initTable(dataArray) {
           changes[0][3] = changes[0][2];
 		  }
         }
+		else if ((changes[0][0] == 25) && (changes[0][1] == 4) ) {
+			//alert('valid');
+		  var change = changes[0][3];
+		  if((changes[0][3].match(/^\s*(?=.*[1-9])0{0,1}(?:\.\d{1,2})?\s*$/) == null) && (changes[0][3].match(/^\s*(1\.0)|(1\.00)\s*$/) == null)) {
+		  //alert(changes[0][3].match(/^\d+$/));
+			changes[0][3] = changes[0][2];
+		  }
+		  if(change  .match(/^\s*1\s*$/) != null) {
+			changes[0][3] = '1.00';
+		  
+		  }
+        }
 		else {
 		
 			changes[0][3] = changes[0][2];
@@ -126,13 +138,13 @@ function updateSOW() {
 	$('#tcalls')[0].selectedIndex = hot.getDataAtCell(21,2);
 	$('#numpm')[0].selectedIndex = hot.getDataAtCell(22,2);
 	$('#numplm')[0].selectedIndex = hot.getDataAtCell(23,2);
-	$('#hrs')[0].value = getTotalHRS();
+	$('#hrs')[0].value = getTotalHRS(parseFloat(hot.getDataAtCell(25,4)));
 	$('.selectpicker').selectpicker('refresh');
 
 
 }
 
-function getTotalHRS() {
+function getTotalHRS(pad) {
 	var sum = 0;
 	for(var i=1;i < 24; i++) {
 	
@@ -140,7 +152,7 @@ function getTotalHRS() {
 		//alert(sum);
 	
 	}
-	var padding = .3 * sum;
+	var padding = pad * sum;
 	
 	sum = sum + padding;
 	return Math.ceil(sum);

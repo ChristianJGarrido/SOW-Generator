@@ -441,8 +441,62 @@ $("#page-content").wordExport();
 
 }
 
+function iType() {
+
+	var selected = $(this).find("option:selected").val();
+	if(selected == "Migration") {
+		migration();
+	
+	}
+	else{
+	
+		newexp();
+	
+	}
+	updateSOW();
+	$('.selectpicker').selectpicker('refresh');
+	
+
+}
+
+function newexp() {
+
+	resetDD();
+	$('#numskill').attr('disabled',true);
+	$('#numvispro').attr('disabled',true);
+	//$('#pit').attr('disabled',true);
+	$('#busrules').attr('disabled',true);
+	//$('#sso').attr('disabled',true);
+	//$('#ssotype').attr('disabled',true);
+	$('#dbs').attr('disabled',true);
+	//$('#invites').attr('disabled',true);
+	$('#reptargets').attr('disabled',true);
+	$('#scards').attr('disabled',true);
+	$('#tcalls').attr('disabled',true);
+	$('#numstaffr').attr('disabled',true);
+	$('#numaer').attr('disabled',true);
+	//$('#numatrain').attr('disabled',true);
+	$('#numpm').attr('disabled',true);
+	$('#numplm').attr('disabled',true);
+	$('#hrs').attr('readonly','readonly');
+}
+
+function resetDD() {
+
+	var dds = $('.selectpicker');
+	
+	for(var i = 0; i < dds.length; i++) {
+	
+		if(dds[i].disabled) {
+			dds[i].removeAttribute('disabled');
+			//dds[i].selectpicker('refresh');
+		}
+	}
+}
+
 window.onload = function() {
   loadDropDowns();
   initData();
   initTable(window.data);
+  iType();
 };
